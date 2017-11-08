@@ -12,7 +12,7 @@ import re
 import serial
 import threading
 
-__version__ = '0.5.0'
+__version__ = '0.6.0'
 
 Eny = collections.namedtuple('Eny', 'id cumulated')
 RESULT_CODE = {
@@ -64,12 +64,12 @@ def parse(line):
         Eny: Eny named tuple
     """
     line = str(line)
-    if not line.startswith('rcv ok : '):
+    if not line.startswith('<rcv ok : '):
         return None
 
-    line = line.replace('rcv ok : ', '')
+    line = line.replace('<rcv ok : ', '')
     line = line.translate(None, ' ')
-    line = line.translate(None, '\r\n')
+    line = line.translate(None, '>\r\n')
 
     pairs = line.split(',')
     if len(pairs) < 3:
